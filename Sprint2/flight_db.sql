@@ -1,0 +1,60 @@
+CREATE DATABASE GirlSuzette;
+
+CREATE TABLE Aerolinea (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Avion (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Modelo VARCHAR(100) NOT NULL,
+    Capacidad INT(2),
+    AerolineaId INT,
+    FOREIGN KEY (AerolineaId) REFERENCES Aerolinea(Id)
+);
+
+
+CREATE TABLE Salida (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Aeropuerto_Salida VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Destino (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Aeropuerto_Destino VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Vuelo (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Hora_Salida DATETIME NOT NULL,
+    Hora_Llegada DATETIME NOT NULL,
+    AvionId INT,
+    SalidaId INT,
+    DestinoId INT,
+    FOREIGN KEY (AvionId) REFERENCES Avion(Id),
+    FOREIGN KEY (SalidaId) REFERENCES Salida(Id),
+    FOREIGN KEY (DestinoId) REFERENCES Destino(Id)
+);
+
+
+CREATE TABLE Pasajero (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Apellido VARCHAR(50) NOT NULL,
+    Mail VARCHAR(150) NOT NULL,
+    UNIQUE KEY `Mail` (`Mail`)
+); 
+
+
+CREATE TABLE Reservar_Boleto (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    PasajeroId INT,
+    VueloId INT,
+    FOREIGN KEY (PasajeroId) REFERENCES Pasajero(Id),
+    FOREIGN KEY (VueloId) REFERENCES Vuelo(Id)
+);
+
+
+
+
