@@ -1,0 +1,59 @@
+CREATE DATABASE GirlSuzette;
+
+
+CREATE TABLE Director (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Apellido VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE Episodio (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Vistas INT(2),
+    DirectorId INT,
+    FOREIGN KEY (DirectorId) REFERENCES Director(Id),
+    FOREIGN KEY (SerieId) REFERENCES Serie(Id)
+);
+
+
+CREATE TABLE HorarioVista (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Hora DATETIME NOT NULL,
+    EpisodioId INT,
+    FOREIGN KEY (EpisodioId) REFERENCES Episodio(Id)
+    
+);
+
+CREATE TABLE Serie (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Actor (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Personaje VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Reparto (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ActorId INT,
+    EpisodioId INT,
+    FOREIGN KEY (ActorId) REFERENCES Actor(Id),
+    FOREIGN KEY (EpisodioId) REFERENCES Episodio(Id)
+    
+);
+
+CREATE TABLE SelectActor_serie (
+    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ActorId INT,
+    SerieId INT,
+    FOREIGN KEY (ActorId) REFERENCES Actor(Id),
+    FOREIGN KEY (SerieId) REFERENCES Serie(Id)
+    
+);
+
+
+
